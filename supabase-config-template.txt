@@ -1,0 +1,10 @@
+# Supabase Configuration Template
+# Copy this to .env.local and fill in your values
+
+# Get these from https://supabase.com → Your Project → Settings → API
+NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.your-long-key-here
+
+# Example (DO NOT USE THESE):
+# NEXT_PUBLIC_SUPABASE_URL=https://abcdefghijk.supabase.co
+# NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFiY2RlZmdoaWprIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzg4ODg4ODgsImV4cCI6MTk5NDQ2NDg4OH0.example_signature_here

@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Allow anyone to read/write during development
+    // TODO: Restrict this in production
+    match /{document=**} {
+      allow read, write: if true;
+    }
+    
+    /* PRODUCTION RULES (uncomment when ready):
+    
+    // Users collection
+    match /users/{userId} {
+      allow read: if true; // Anyone can read for emergency cards
+      allow write: if request.auth != null && 
+        (request.auth.uid == userId || request.auth.token.admin == true);
+    }
+    
+    // Emergency alerts
+    match /emergencies/{alertId} {
+      allow create: if request.auth != null;
+      allow read: if request.auth != null;
+      allow update: if request.auth != null && request.auth.token.manager == true;
+    }
+    
+    // E-FIRs
+    match /efirs/{firId} {
+      allow create: if request.auth != null;
+      allow read: if request.auth != null && 
+        (resource.data.userId == request.auth.uid || request.auth.token.manager == true);
+      allow update: if request.auth.token.manager == true;
+    }
+    
+    // NFTs
+    match /nfts/{nftId} {
+      allow read, write: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+    }
+    
+    */
+  }
+}
