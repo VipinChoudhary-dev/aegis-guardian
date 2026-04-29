@@ -3,14 +3,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { Shield, AlertTriangle, Phone, MapPin, Hospital, Users, Clock, Smartphone, CheckCircle } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
-import { useAccount } from 'wagmi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { SoundManager } from '@/utils/sounds';
 import { DatabaseService, EmergencyAlert } from '@/lib/database-supabase';
 
 export default function GuardianPage() {
-  const { address, isConnected } = useAccount();
   const { t } = useLanguage();
   const [isActivated, setIsActivated] = useState(false);
   const [countdown, setCountdown] = useState(5);
@@ -168,7 +166,7 @@ export default function GuardianPage() {
       
       // Create emergency alert
       const emergencyAlert: Omit<EmergencyAlert, 'alertId'> = {
-        userId: profile?.userId || address || 'anonymous-' + Date.now(),
+        userId: profile?.userId || 'anonymous-' + Date.now(),
         userName: profile?.name || 'Unknown User',
         userPhone: profile?.phone || 'Not provided',
         timestamp: new Date(),

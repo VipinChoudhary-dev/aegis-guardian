@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { Award, MapPin, Calendar, ExternalLink, Trophy } from 'lucide-react';
-import { useAccount } from 'wagmi';
 import { Navbar } from '@/components/Navbar';
 import { motion } from 'framer-motion';
 
@@ -17,7 +16,6 @@ interface NFTReward {
 }
 
 export default function RewardsPage() {
-  const { address, isConnected } = useAccount();
   const [nfts, setNfts] = useState<NFTReward[]>([]);
 
   useEffect(() => {

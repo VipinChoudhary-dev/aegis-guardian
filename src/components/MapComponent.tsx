@@ -329,7 +329,6 @@ export default function MapComponent() {
           scrollWheelZoom={true}
           zoomControl={false}
           ref={mapRef}
-          whenCreated={(map: any) => { mapRef.current = map; }}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

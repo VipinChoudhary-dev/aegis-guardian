@@ -7,12 +7,10 @@ import {
   AlertCircle, Loader, Camera, X, Plus, Clock
 } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
-import { useAccount } from 'wagmi';
 import { DatabaseService, EFIRReport, UserProfile } from '@/lib/database-supabase';
 import { ImageUploadService } from '@/lib/image-upload';
 
 export default function EFIRPage() {
-  const { address } = useAccount();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -31,7 +29,7 @@ export default function EFIRPage() {
   useEffect(() => {
     loadProfile();
     getCurrentLocation();
-  }, [address]);
+  }, []);
 
   const loadProfile = async () => {
     try {

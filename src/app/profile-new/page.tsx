@@ -6,7 +6,6 @@ import {
   User, Camera, Save, Phone, Heart, QrCode, Plus, X, 
   Download, Shield, AlertCircle, CheckCircle, Loader
 } from 'lucide-react';
-import { useAccount } from 'wagmi';
 import { Navbar } from '@/components/Navbar';
 import QRCodeReact from 'react-qr-code';
 import { DatabaseService, UserProfile, EmergencyContact } from '@/lib/database-supabase';
@@ -16,7 +15,6 @@ import { ImageUploadService } from '@/lib/image-upload';
 const BLOOD_TYPES = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
 export default function ProfilePage() {
-  const { address } = useAccount();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [profile, setProfile] = useState<Partial<UserProfile>>({
@@ -40,7 +38,7 @@ export default function ProfilePage() {
   // Load profile from Supabase
   useEffect(() => {
     loadProfile();
-  }, [address]);
+  }, []);
 
   const loadProfile = async () => {
     try {
@@ -59,7 +57,7 @@ export default function ProfilePage() {
       }
       
       // If no local profile, try Firebase
-      const userId = address || 'user-' + Date.now();
+      const userId = 'user-' + Date.now();
       const existingProfile = await DatabaseService.getUserProfile(userId);
       
       if (existingProfile) {
@@ -155,7 +153,7 @@ export default function ProfilePage() {
     try {
       setSaving(true);
       
-      const userId = address || profile.userId || 'user-' + Date.now();
+      const userId = profile.userId || 'user-' + Date.now();
       const digitalId = profile.digitalId || DatabaseService.generateDigitalId();
 
       // Generate QR code
@@ -163,7 +161,7 @@ export default function ProfilePage() {
 
       const fullProfile: Omit<UserProfile, 'createdAt' | 'lastActive'> = {
         userId,
-        walletAddress: address,
+        walletAddress: undefined,
         name: profile.name!,
         phone: profile.phone!,
         email: profile.email,

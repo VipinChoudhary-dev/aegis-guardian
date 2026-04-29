@@ -2,12 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { FileText, Upload, MapPin, Calendar, Phone, User, AlertCircle, CheckCircle } from 'lucide-react';
-import { useAccount } from 'wagmi';
 import { Navbar } from '@/components/Navbar';
 import { motion } from 'framer-motion';
 
 export default function ReportPage() {
-  const { address } = useAccount();
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -56,7 +54,7 @@ export default function ReportPage() {
     const report = {
       ...formData,
       location,
-      walletId: address || 'Not connected',
+      walletId: 'Not connected',
       timestamp: new Date().toISOString(),
       reportId: `FIR-${Date.now()}`
     };
@@ -255,15 +253,7 @@ export default function ReportPage() {
               </div>
             )}
 
-            {/* Wallet ID */}
-            {address && (
-              <div className="mb-6 bg-green-900/20 border border-green-500/30 rounded-lg p-4">
-                <div className="flex items-center text-green-300">
-                  <AlertCircle className="h-5 w-5 mr-2" />
-                  <span className="text-sm">Digital ID: {address.substring(0, 10)}...{address.substring(address.length - 8)}</span>
-                </div>
-              </div>
-            )}
+            {/* Digital ID - removed wallet requirement */}
 
             {/* Submit Button */}
             <button

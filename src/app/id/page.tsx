@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { User, Download, Shield, Fingerprint, Award } from 'lucide-react';
-import { useAccount } from 'wagmi';
 import { Navbar } from '@/components/Navbar';
 import { QRCodeSVG } from 'qrcode.react';
 import { motion } from 'framer-motion';
@@ -23,7 +22,6 @@ function toHex(str: string) {
 }
 
 export default function IDPage() {
-  const { address, isConnected } = useAccount();
   const [did, setDid] = useState<string>('');
   const [idNumber, setIdNumber] = useState<string>('');
   const [profile, setProfile] = useState<ProfileData | null>(null);
@@ -31,21 +29,20 @@ export default function IDPage() {
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (address) {
-      const keyMaterial = `${address}-${Date.now()}`;
-      const generatedDid = `did:aegis:${toHex(keyMaterial).substring(0, 32)}`;
-      const generatedId = `AG-${address.substring(2, 8).toUpperCase()}-${Date.now().toString().substring(7)}`;
-      setDid(generatedDid);
-      setIdNumber(generatedId);
-      setTimestamp(new Date().toLocaleDateString('en-IN'));
-      
-      // Load profile
-      const savedProfile = localStorage.getItem('aegis-profile');
-      if (savedProfile) {
-        setProfile(JSON.parse(savedProfile));
-      }
+    const userId = 'user-' + Date.now();
+    const keyMaterial = `${userId}-${Date.now()}`;
+    const generatedDid = `did:aegis:${toHex(keyMaterial).substring(0, 32)}`;
+    const generatedId = `AG-${userId.substring(0, 6).toUpperCase()}-${Date.now().toString().substring(7)}`;
+    setDid(generatedDid);
+    setIdNumber(generatedId);
+    setTimestamp(new Date().toLocaleDateString('en-IN'));
+    
+    // Load profile
+    const savedProfile = localStorage.getItem('aegis-profile');
+    if (savedProfile) {
+      setProfile(JSON.parse(savedProfile));
     }
-  }, [address]);
+  }, []);
 
   const downloadIDCard = () => {
     if (cardRef.current) {
@@ -59,7 +56,7 @@ export default function IDPage() {
   const qrData = JSON.stringify({
     did,
     idNumber,
-    address,
+    // address removed
     name: profile?.name || 'User',
     verified: true,
     issuer: 'Aegis Guardian',
@@ -229,15 +226,13 @@ export default function IDPage() {
             <Download className="h-5 w-5" />
             Download ID Card
           </button>
-          <a
-            href={`https://amoy.polygonscan.com/address/${address}`}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => alert('Blockchain verification coming in Phase 2')}
             className="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-xl font-semibold flex items-center gap-2 transition-all"
           >
             View on PolygonScan
             <Shield className="h-5 w-5" />
-          </a>
+          </button>
         </motion.div>
 
         {/* Info Cards */}

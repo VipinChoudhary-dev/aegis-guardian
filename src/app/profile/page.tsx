@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { User, Camera, Save, Mail, Phone, MapPin, Calendar } from 'lucide-react';
-import { useAccount } from 'wagmi';
 import { Navbar } from '@/components/Navbar';
 import { motion } from 'framer-motion';
 
@@ -18,7 +17,6 @@ interface ProfileData {
 }
 
 export default function ProfilePage() {
-  const { address, isConnected } = useAccount();
   const [profile, setProfile] = useState<ProfileData>({
     name: '',
     email: '',
@@ -58,23 +56,7 @@ export default function ProfilePage() {
     }
   };
 
-  if (!isConnected) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 text-white p-4">
-        <div className="max-w-4xl mx-auto pt-20 pb-32">
-          <div className="text-center">
-            <User className="h-16 w-16 mx-auto mb-4 text-slate-400" />
-            <h1 className="text-3xl font-bold mb-4">Profile</h1>
-            <p className="text-slate-300 mb-8">Connect your wallet to access your profile</p>
-            <div className="bg-amber-900/20 border border-amber-800/50 text-amber-400 px-6 py-4 rounded-lg max-w-md mx-auto">
-              ⚠️ Please connect your wallet to continue
-            </div>
-          </div>
-        </div>
-        <Navbar />
-      </div>
-    );
-  }
+  // Removed wallet connection check - all features available
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 text-white p-4">
