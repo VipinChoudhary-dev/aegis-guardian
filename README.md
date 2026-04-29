@@ -320,7 +320,7 @@ This project is licensed under the MIT License.
 
 ## 📞 Support
 
-For support, email support@aegisguardian.com or join our Discord server.
+For support, email vipinchoudhary0911@gmail.com or join our Discord server.
 
 ## 🔮 Future Enhancements
 
