@@ -24,7 +24,7 @@
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",
     "lucide-react": "^0.548.0",
-    "next": "16.0.0",
+    "next": "16.0.10",
     "os-browserify": "^0.3.0",
     "qrcode": "^1.5.4",
     "qrcode.react": "^4.2.0",
